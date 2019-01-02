@@ -20,7 +20,6 @@ public:
         }
     }
     void bellman(int src){
-   // vector<bool>mst(V,false);
     vector<int>dist(V,INT_MAX);
     dist[src]=0;
     for(int i=0;i<=V-1;i++){
