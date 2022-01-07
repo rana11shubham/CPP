@@ -19,7 +19,7 @@ class Solution{
             mp[s[j]]++;
         if(mp.size()>k){
             // something to do here
-            while(mp.size()>k && i<=j){
+            while(mp.size()>k){
                 mp[s[i]]--;
                 if(mp[s[i]]==0){
                     mp.erase(s[i]);
