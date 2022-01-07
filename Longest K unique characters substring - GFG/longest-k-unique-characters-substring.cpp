@@ -22,10 +22,7 @@ class Solution{
             while(mp.size()>k && i<=j){
                 mp[s[i]]--;
                 if(mp[s[i]]==0){
-                    
                     mp.erase(s[i]);
-                    i=i+1;
-                    break;
                 }
                 i++;
             }
