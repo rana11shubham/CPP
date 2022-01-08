@@ -10,18 +10,33 @@ class Solution
     //Function to find the smallest window in the string s consisting
     //of all the characters of string p.
     string smallestWindow (string s, string t)
-    {
-        vector<int> map(128,0);
-        for(auto c: t) map[c]++;
-        int counter=t.size(), begin=0, end=0, d=INT_MAX, head=0;
-        while(end<s.size()){
-            if(map[s[end++]]-->0) counter--; //in t
-            while(counter==0){ //valid
-                if(end-begin<d)  d=end-(head=begin);
-                if(map[s[begin++]]++==0) counter++;  //make it invalid
-            }  
+    {  int n=s.length();
+       int i=0,j=0,start=0,ans=INT_MAX;
+       string f_ans="";
+       vector<int>mp(128,0);
+       for(auto it:t)
+            mp[it]++;
+        int count=t.length();
+        for(;j<n;j++){
+            
+            if(mp[s[j]]>0){
+                count--;
+            }
+            mp[s[j]]--;
+            while(count==0){
+                if(ans>j-i+1){
+                    ans=j-i+1;
+                    start=i;
+                }
+                mp[s[i]]++;
+                if(mp[s[i]]>0){
+                    count++;
+                }
+                i++;
+            }
         }
-        return d==INT_MAX? "-1":s.substr(head, d);
+        return ans==INT_MAX?"-1":s.substr(start,ans);
+        
     }
 };
 
