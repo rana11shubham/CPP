@@ -9,13 +9,16 @@ public:
         for(auto it:s)
             ss.push_back(it);
         sort(ss.begin(),ss.end());
-        int ans=INT_MAX;
-        int i=0;
-        for(int it:ss){
-            int upper=(it)+n-1;
-             auto upper_loc = upper_bound(ss.begin(), ss.end(), upper);
-            int temp=upper_loc-ss.begin();
-            ans=min(ans,n-(temp-i));
+        int ans=n;
+        int i=0,j=0;
+        int m=ss.size();
+        while(i<m){
+            int largest_ele=ss[i]+n-1;
+            while(j<m && ss[j]<=largest_ele){
+                j++;
+            }
+            
+            ans=min(ans,n-(j-i));
             i++;
         }
          return ans;
