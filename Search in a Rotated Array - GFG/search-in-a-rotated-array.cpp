@@ -31,6 +31,8 @@ class Solution{
             int mid=l+(h-l)/2;
             if(A[mid]<A[(mid-1+n)%n] && A[mid]<A[(mid+1-n)%n])
             {    min_loc=mid;
+                if(key==A[mid])
+                    return mid;
                 break;}
             else if(A[mid]<A[l]){
                 h=mid-1;
