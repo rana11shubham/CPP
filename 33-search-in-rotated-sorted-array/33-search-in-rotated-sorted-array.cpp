@@ -37,14 +37,10 @@ public:
                 start=mid+1;
             }
         }
-        // int opt1=-1;
-        // if(nums[0]>target){
-        //     opt1=bs(nums,min_loc,n-1,target);
-        // }
-        // else opt1=bs(nums,0,min_loc,target);
-        int opt1=bs(nums,0,min_loc-1,target);
-        int opt2=bs(nums,min_loc+1,n-1,target);
-        //cout<<min_loc;
+        
+       int opt1=bs(nums,0,min_loc-1,target);
+       int opt2=bs(nums,min_loc+1,n-1,target);
+        cout<<min_loc;
         return (opt1==-1)?opt2:opt1;
     }
 };
