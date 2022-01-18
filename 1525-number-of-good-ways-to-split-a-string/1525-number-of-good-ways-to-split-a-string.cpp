@@ -6,7 +6,7 @@ public:
         vector<int>left(n,0);
        // vector<int>right(n,0);
         unordered_map<char,int>mp;
-        set<int>l_used;
+        unordered_set<int>l_used;
         int l_score=0,r_score=0;
         for(auto it:s){
             mp[it]++;
