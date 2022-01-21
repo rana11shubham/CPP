@@ -1,19 +1,27 @@
 class Solution {
 public:
-
+    int dp[100000][2][3];
+    int solve(vector<int>&prices,int pos,int sell,int trans){
+        int n=prices.size();
+        if(pos>=n || trans==0){
+            return 0;
+        }
+        int &ans=dp[pos][sell][trans];
+        if(ans!=-1){
+            return ans;
+        }
+        if(sell==1){
+            ans=max(solve(prices,pos+1,1,trans),solve(prices,pos+1,0,trans-1)+prices[pos]);
+        }
+        else{
+             ans=max(solve(prices,pos+1,0,trans),solve(prices,pos+1,1,trans)-prices[pos]);
+        }
+        return ans;
+    }
     int maxProfit(vector<int>& prices) {
         int n=prices.size();
         int ans=0;
-       int buy1=-1000000;
-        int sell1=0;
-        int buy2=sell1-prices[0];
-        int sell2=0;
-        for(auto it:prices){
-            buy1=max(buy1,-it);
-            sell1=max(sell1,buy1+it);
-            buy2=max(buy2,sell1-it);
-            sell2=max(sell2,buy2+it);
-        }
-    return max(sell1,sell2);
+        memset(dp,-1,sizeof(dp));
+        return solve(prices,0,0,2);
     }
 };
