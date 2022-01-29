@@ -18,7 +18,7 @@ public:
             return dp[i][j];
         }
         //copy
-        int opt1= 1+solve(i,i,n);
+        int opt1= 2+solve(i+i,i,n);
         //paste
         int opt2=1+solve(i+j,j,n);
         return dp[i][j]= min(opt1,opt2);
