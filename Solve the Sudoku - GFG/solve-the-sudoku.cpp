@@ -15,7 +15,7 @@ class Solution
 {
     public:
     //Function to find a solved Sudoku.
-    bool isValid(vector<vector<int>>&grid,int row,int col,int x){
+    bool isValid(int grid[][9],int row,int col,int x){
          for(int i=0;i<9;i++){
             if(grid[i][col]==x ||grid[row][i]==x)
                 return false;
@@ -30,7 +30,7 @@ class Solution
         }
         return true;
     }
-    bool solve(vector<vector<int>>&grid,int row, int col){
+    bool solve(int grid[][9],int row, int col){
         if(row==9){
             return true;
         }
@@ -54,18 +54,18 @@ class Solution
                 return false;
       
     }
-    bool SolveSudoku(int grid[N][N])  
-    {  vector<vector<int>>dp(9,vector<int>(9));
-        for(int i=0;i<9;i++)
-            for(int j=0;j<9;j++)
-                dp[i][j]=grid[i][j];
+    bool SolveSudoku(int grid[N][N]){
+    // {  vector<vector<int>>dp(9,vector<int>(9));
+    //     for(int i=0;i<9;i++)
+    //         for(int j=0;j<9;j++)
+    //             dp[i][j]=grid[i][j];
             
-        bool temp= solve(dp,0,0);
+        bool temp= solve(grid,0,0);
         // for(int i=0;i<9;i++)
         //     cout<<dp[0][i];
-        for(int i=0;i<9;i++)
-            for(int j=0;j<9;j++)
-                grid[i][j]=dp[i][j];
+        // for(int i=0;i<9;i++)
+        //     for(int j=0;j<9;j++)
+        //         grid[i][j]=dp[i][j];
      return temp;
     }
     
