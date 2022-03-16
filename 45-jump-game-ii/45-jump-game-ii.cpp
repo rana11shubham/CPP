@@ -3,17 +3,17 @@ public:
     #define INF 1000000007
     int jump(vector<int>& A) {
        int n=A.size();
-        int dp[n];
-        memset(dp,INF,sizeof(dp));
-        dp[0]=0;
-        for(int i=0;i<n;i++){
-            int reach=A[i];
-            for(int j=1;j<=reach;j++){
-                if(i+j<n){
-                    dp[i+j]=min(dp[i+j],1+dp[i]);
-                }
+        if(n==1)
+            return 0;
+       int curr_pos=A[0],next_pos=A[0];
+        int jump=1;
+        for(int i=1;i<n;i++){
+            if(curr_pos<i){
+                jump++;
+                curr_pos=next_pos;
             }
+            next_pos=max(next_pos,A[i]+i);
         }
-        return dp[n-1];
+        return jump;
     }
 };
