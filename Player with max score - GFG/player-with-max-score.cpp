@@ -10,7 +10,7 @@ using namespace std;
 class Solution{   
 public:
     int dp[1001][1001];
-    int solve(int arr[],int pos1,int pos2,int sum){
+    int solve(int arr[],int pos1,int pos2){
         if(pos1==pos2){
             return arr[pos1];
         }
@@ -23,9 +23,9 @@ public:
             return dp[pos1][pos2];
         }
        
-            dp[pos1][pos2]=max(sum-solve(arr,pos1+1,pos2,sum-arr[pos1]),sum-solve(arr,pos1,pos2-1,sum-arr[pos2]));
-        
-        return dp[pos1][pos2];
+        int opt1=arr[pos1]+min(solve(arr,pos1+2,pos2),solve(arr,pos1+1,pos2-1));
+        int opt2=arr[pos2]+min(solve(arr,pos1,pos2-2),solve(arr,pos1+1,pos2-1));
+        return dp[pos1][pos2]=max(opt1,opt2);
     }
     
     bool is1winner(int N,int arr[]) {
@@ -34,7 +34,7 @@ public:
             sum+=arr[i];
         // code here
         memset(dp,-1,sizeof(dp));
-        int ans=solve(arr,0,N-1,sum);
+        int ans=solve(arr,0,N-1);
         //cout<<ans<<endl;
         return ans>=sum-ans;
     }
