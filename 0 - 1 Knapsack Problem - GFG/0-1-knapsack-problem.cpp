@@ -4,12 +4,10 @@ using namespace std;
 
 
  // } Driver Code Ends
-
 class Solution
 {
     public:
     //Function to return max value that can be put in knapsack of capacity W.
-    //vector<vector<int>>dp;
     int dp[1001][1001];
     int kS(int W,int wt[],int val[],int n){
         if(n<0 || W==0){
@@ -30,23 +28,11 @@ class Solution
     }
     int knapSack(int W, int wt[], int val[], int n) 
     { 
-        // vector<vector<int>>dp(n+1,vector<int>(W+1,0));
-        // for(int i=1;i<=n;i++){
-        //     for(int j=1;j<=W;j++){
-        //         if(j>=wt[i-1]){
-        //             dp[i][j]=max(dp[i-1][j],val[i-1]+dp[i-1][j-wt[i-1]]);
-        //         }
-        //         else{
-        //             dp[i][j]=dp[i-1][j];
-        //         }
-        //     }
-        // }
+       // Your code here
         memset(dp,-1,sizeof(dp));
         
         return kS(W,wt,val,n-1);
-        
     }
-        
 };
 
 // { Driver Code Starts.
