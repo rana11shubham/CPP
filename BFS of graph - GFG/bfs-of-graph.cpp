@@ -13,10 +13,11 @@ class Solution {
         vector<bool>vis(V,false);
                 queue<int>q;
                 q.push(0);
+                vis[0]=true;
                 while(!q.empty()){
                     int u=q.front();
                     q.pop();
-                    vis[u]=true;
+                    
                     ans.push_back(u);
                     for(auto it:adj[u]){
                         if(!vis[it])
