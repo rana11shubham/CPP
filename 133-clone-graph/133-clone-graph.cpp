@@ -31,17 +31,12 @@ public:
         while(!q.empty()){
             auto it=q.front();
             q.pop();
-            vector<Node*>adj;
             for(auto x:it->neighbors){
-                if(mp.find(x)!=mp.end()){ // SUppose it is already present in the map
-                   adj.push_back(mp[x]);
-                    mp[it]->neighbors.push_back(mp[x]);
-                }
-                else{
+                if(mp.find(x)==mp.end()){ // SUppose it is already present in the map
                     q.push(x);
                     mp[x]=new Node(x->val);
-                     mp[it]->neighbors.push_back(mp[x]);
                 }
+                mp[it]->neighbors.push_back(mp[x]);
             }
         }
         return mp[node];
