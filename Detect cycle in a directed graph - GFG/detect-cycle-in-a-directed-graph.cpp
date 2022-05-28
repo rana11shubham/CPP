@@ -8,19 +8,17 @@ class Solution {
     // Function to detect cycle in a directed graph.
     unordered_map<int,int>recStack;
     bool isCycle(int v,vector<int>adj[],vector<int>&vis){
-        if(!vis[v]){
         vis[v]=true;
         recStack[v]=1;
         for(auto it:adj[v]){
-            if(recStack[it]){
+            if(vis[it] and recStack[it]){
                 return true;
             }
             else{
-                if(isCycle(it,adj,vis))
+                if(!vis[it] && isCycle(it,adj,vis))
                     return true;
             }
         }
-    }
         recStack[v]=0;
         return false;
     }
