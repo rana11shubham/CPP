@@ -12,11 +12,12 @@ public:
 vector<vector<int>>dp;
     bool solve(vector<int>arr,int idx,int sum){
         // Base cases
-        if(idx==arr.size()-1)
-            return sum==arr[idx];
+        
         if(sum==0)
             return true;
         if(sum<0)
+            return false;
+        if(idx==arr.size())
             return false;
         int &ans=dp[idx][sum];
         if(ans!=-1)
