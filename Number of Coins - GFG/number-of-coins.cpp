@@ -14,8 +14,6 @@ class Solution{
 	            return V/coins[idx];
 	       return 1e9+7;
 	    }
-	    if(idx>=M)
-	        return INT_MAX;
 	   if(V==0)
 	    return 0;
 	   if(V<0)
