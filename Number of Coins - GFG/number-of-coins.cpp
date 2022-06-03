@@ -6,31 +6,33 @@ using namespace std;
 class Solution{
 
 	public:
-	int dp[100000];
-	int solve(int *coins,int n,int v){
-	    //Base case
-	    if(v==0)
-	        return 0;
-	  
-	    if(dp[v]!=-1)
-	        return dp[v];
-	    int ans=INT_MAX;
-	    for(int i=0;i<n;i++){
-	        if(coins[i]<=v){
-	        int temp=solve(coins,n,v-coins[i]);
-	        if(temp!=INT_MAX)
-	            ans=min(ans,temp+1);
-	        }
+	vector<vector<int>>dp;
+	int solve(int coins[],int idx,int V,int M){
+	    // Base Cases
+	    if(idx==M-1){
+	        if(V%coins[idx]==0)
+	            return V/coins[idx];
+	       return 1e9+7;
 	    }
-	    
-	   return dp[v]=ans;
+	    if(idx>=M)
+	        return INT_MAX;
+	   if(V==0)
+	    return 0;
+	   if(V<0)
+	    return 1e9+7;
+	    if(dp[idx][V]!=-1)
+	        return dp[idx][V];
+	    int opt1=1+solve(coins,idx,V-coins[idx],M);
+	    int opt2=solve(coins,idx+1,V,M);
+	    return dp[idx][V]= min(opt1,opt2);
 	}
+	
+	
 	int minCoins(int coins[], int M, int V) 
-	{ 
-	    // Your code goes here
-	    memset(dp,-1,sizeof(dp));
-	    int ans=solve(coins,M,V);
-	    return ans==INT_MAX?-1:ans;
+	{   dp.assign(M,vector<int>(V+1,-1));
+	    int ans= solve(coins,0,V,M);
+	   return ans==1e9+7?-1:ans;
+	    
 	} 
 	  
 };
