@@ -8,30 +8,25 @@ class Solution
 {
     public:
     //Function to return max value that can be put in knapsack of capacity W.
-    int dp[1001][1001];
-    int kS(int W,int wt[],int val[],int n){
-        if(n<0 || W==0){
+   vector<vector<int>>dp;
+   int solve(int wt[],int val[],int idx,int W,int n){
+       //Base cases
+       if(W==0)
             return 0;
-        }
-        if(dp[n][W]!=-1){
-            return dp[n][W];
-        }
-        if(wt[n]<=W){
-            return dp[n][W]=max(kS(W-wt[n],wt,val,n-1)+val[n],kS(W,wt,val,n-1));
-        }
-       
-          return dp[n][W]=kS(W,wt,val,n-1);
-       
-        //Recursive conditions
-       // Your code here
-    
-    }
+        if(W<0)
+            return -1e9+7;
+        if(idx>=n)
+            return 0;
+        if(dp[idx][W]!=-1)
+            return dp[idx][W];
+       int opt1=solve(wt,val,idx+1,W,n);
+       int opt2=solve(wt,val,idx+1,W-wt[idx],n)+val[idx];
+       return dp[idx][W]= max(opt1,opt2);
+   }
     int knapSack(int W, int wt[], int val[], int n) 
     { 
-       // Your code here
-        memset(dp,-1,sizeof(dp));
-        
-        return kS(W,wt,val,n-1);
+       dp.assign(n,vector<int>(W+1,-1));
+       return solve(wt,val,0,W,n);
     }
 };
 
