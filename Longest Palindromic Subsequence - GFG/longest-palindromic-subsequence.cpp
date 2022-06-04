@@ -10,14 +10,14 @@ using namespace std;
 
 class Solution{
   public:
+    int ans=0;
+    
     int longestPalinSubseq(string A) {
         string B=A;
-        reverse(B.begin(),B.end());
-        int n=A.length();
-        int dp[n+1][n+1];
-        memset(dp,0,sizeof(dp));
-        for(int i=1;i<=n;i++){
-            for(int j=1;j<=n;j++){
+        reverse(A.begin(),A.end());
+        vector<vector<int>>dp(A.length()+1,vector<int>(B.length()+1,0));
+        for(int i=1;i<=A.length();i++){
+            for(int j=1;j<=B.length();j++){
                 if(A[i-1]==B[j-1]){
                     dp[i][j]=dp[i-1][j-1]+1;
                 }
@@ -26,7 +26,7 @@ class Solution{
                 }
             }
         }
-        return dp[n][n];
+        return dp[A.length()][B.length()];
     }
 };
 
