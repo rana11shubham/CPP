@@ -1,35 +1,37 @@
 class Solution {
 public:
-    bool isMatch(string s, string p) {
-        int n1=s.length();
-        int n2=p.length();
-        vector<vector<int>>dp(n1+1,vector<int>(n2+1,-1));
-        return helper(s,p,0,0,dp);
+    string S,P;
+    int N,M;
+    vector<vector<int>>dp;
+    int solve(int idx1,int idx2){
+        // Base Cases
+        if(idx1<0 and idx2<0)
+            return true;
+        if(idx2<0)
+            return false;
+        
+        if(idx1<0){
+            for(int i=idx2;i>=0;i--)
+                if(P[i]!='*')
+                    return false;
+            return true;
+        }
+        if(dp[idx1][idx2]!=-1)
+            return dp[idx1][idx2];
+        
+        if(S[idx1]==P[idx2] || P[idx2]=='?'){
+            return dp[idx1][idx2]= solve(idx1-1,idx2-1);
+        }
+        else if(P[idx2]=='*')
+        return dp[idx1][idx2]=solve(idx1,idx2-1) || solve(idx1-1,idx2);
+        return dp[idx1][idx2]= false;
     }
-    bool helper(string &s,string &p,int i,int j,vector<vector<int>>&dp){
-        if(p.length()==j){
-            return i==s.length();
-        }
-       if(dp[i][j]<0){
-         if(i==s.length()){
-                dp[i][j]= (p[j]=='*' && helper(s,p,i,j+1,dp));
-                }
-        else if(i<s.length() && (s[i]==p[j] || p[j]=='?')){
-                dp[i][j]=helper(s,p,i+1,j+1,dp);
-        }
-        else if(p[j]=='*'){
-            dp[i][j]=helper(s,p,i+1,j,dp)||helper(s,p,i,j+1,dp);
-        }
-            else{
-                dp[i][j]=false;
-            }
-       }
-        return dp[i][j];
-        }
+    bool isMatch(string s, string p) {
+        S=s;
+        P=p;
+        N=s.length();
+        M=p.length();
+        dp.resize(N+1,vector<int>(M+1,-1));
+        return solve(N-1,M-1);
+    }
 };
-
-
-/*
-aabbccd
-a*c?d
-*/
