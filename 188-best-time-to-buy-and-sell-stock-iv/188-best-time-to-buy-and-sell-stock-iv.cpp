@@ -1,25 +1,25 @@
 class Solution {
 public:
     int dp[1001][2][101];
-    int solve(vector<int>&prices,int pos,int sell,int k){
-        int n=prices.size();
-        if(pos>=n || k==0){
+    int solve(vector<int>&prices,int idx,int buy,int trans,int N){
+        // Base cases
+        if(trans==0)
             return 0;
-        }
-        int &ans=dp[pos][sell][k];
-        if(ans!=-1){
-            return ans;
-        }
-        if(sell==1){
-            ans=max(solve(prices,pos+1,sell,k),solve(prices,pos+1,1-sell,k-1)+prices[pos]);
+        if(idx==N)
+            return 0;
+        if(dp[idx][buy][trans]!=-1)
+            return dp[idx][buy][trans];
+        if(buy==1){
+            return dp[idx][buy][trans]= max(solve(prices,idx+1,buy,trans,N),solve(prices,idx+1,1-buy,trans,N)-prices[idx]);
         }
         else{
-            ans=max(solve(prices,pos+1,sell,k),solve(prices,pos+1,1-sell,k)-prices[pos]);
+            return dp[idx][buy][trans]= max(solve(prices,idx+1,buy,trans,N),solve(prices,idx+1,1-buy,trans-1,N)+prices[idx]);
         }
-        return ans;
     }
+    
     int maxProfit(int k, vector<int>& prices) {
+        int n=prices.size();
         memset(dp,-1,sizeof(dp));
-        return solve(prices,0,0,k);
+        return solve(prices,0,1,k,n);
     }
 };
