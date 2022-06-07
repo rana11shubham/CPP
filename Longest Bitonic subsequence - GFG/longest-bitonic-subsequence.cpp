@@ -26,17 +26,18 @@ class Solution{
 	            if(nums[i]>nums[j])
 	                dp2[i]=max(dp2[i],dp2[j]+1);
 	        }
+	        ans=max(ans,dp1[i]+dp2[i]-1);
 	        max_lis1=max(dp2[i],max_lis1);
 	    }
-	    int final_ans=0;
-	    for(int i=0;i<n;i++){
-	        for(int j=i+1;j<n;j++){
-	            if(nums[i]>nums[j]){
-	                final_ans=max(final_ans,dp1[i]+dp2[j]);
-	            }
-	        }
-	    }	
-	    return max(final_ans,max(max_lis,max_lis1));
+	   // int final_ans=0;
+	   // for(int i=0;i<n;i++){
+	   //     for(int j=i+1;j<n;j++){
+	   //         if(nums[i]>nums[j]){
+	   //             final_ans=max(final_ans,dp1[i]+dp2[j]);
+	   //         }
+	   //     }
+	   // }	
+	    return max(ans,max(max_lis,max_lis1));
 	}
 };
 
