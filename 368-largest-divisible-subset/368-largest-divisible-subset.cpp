@@ -25,7 +25,7 @@ public:
         sort(nums.begin(),nums.end());
         for(int i=n-2;i>=0;i--){
             for(int j=i+1;j<n;j++){
-                if(nums[i]%nums[j]==0 || nums[j]%nums[i]==0){
+                if(nums[j]%nums[i]==0){
                     if(dp[i].first<dp[j].first+1){
                         dp[i]={dp[j].first+1,j};
                     }
