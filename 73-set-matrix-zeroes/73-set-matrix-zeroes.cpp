@@ -3,23 +3,30 @@ public:
     void setZeroes(vector<vector<int>>& matrix) {
         int row=matrix.size();
         int col=matrix[0].size();
-        vector<int>row_hash,col_hash;
+       // vector<int>row_hash,col_hash;
+        int special_cell=-1;
         for(int i=0;i<row;i++){
-            for(int j=0;j<col;j++){
+            if(matrix[i][0]==0)
+             special_cell=0;
+            for(int j=1;j<col;j++){
                 if(matrix[i][j]==0){
-                    row_hash.push_back(i);
-                    col_hash.push_back(j);
+                    matrix[i][0]=0;
+                    matrix[0][j]=0;
+                    
                 }
             }
         }
+        for(int i=row-1;i>=0;i--){
+            for(int j=col-1;j>=1;j--){
+                if(matrix[i][0]==0 or matrix[0][j]==0)
+                    matrix[i][j]=0;
+            }
+            if(special_cell==0){
+                matrix[i][0]=0;
+            }
+        }
        
-        for(auto it:row_hash){
-            for(int i=0;i<col;i++)
-                matrix[it][i]=0;
-        }
-        for(auto it:col_hash){
-            for(int i=0;i<row;i++)
-                matrix[i][it]=0;
-        }
+        
+        
     }
 };
