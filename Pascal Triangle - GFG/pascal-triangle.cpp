@@ -6,21 +6,19 @@ using namespace std;
 
  // } Driver Code Ends
 // #define ll long long
-#define mod 1000000007
 class Solution{
 public:
+#define mod 1000000007
     vector<ll> nthRowOfPascalTriangle(int n) {
-        // code here
-        if(n==1){
+        if(n==1)
             return {1};
-        }
-        else if(n==2)
+        if(n==2)
             return {1,1};
-        vector<ll>temp=nthRowOfPascalTriangle(n-1);
+        vector<ll>prev_Pascal=nthRowOfPascalTriangle(n-1);
         vector<ll>ans;
         ans.push_back(1);
-        for(int i=0;i<temp.size()-1;i++){
-            ans.push_back((ll)(temp[i]+temp[i+1])%mod);
+        for(int i=0;i<prev_Pascal.size()-1;i++){
+            ans.push_back((prev_Pascal[i]%mod+prev_Pascal[i+1]%mod)%mod);
         }
         ans.push_back(1);
         return ans;
