@@ -25,15 +25,12 @@ int longestSubstrDistinctChars (string S)
     int n=S.length();
     while(j<n){
         char temp=S[j];
-        mp[temp]++;
-        while(mp[temp]>1){
-            mp[S[i]]--;
-            i++;
+        if(mp.find(temp)!=mp.end()){
+            i=max(mp[temp]+1,i);
         }
-        if(mp[temp]==1){
-            ans=max(ans,j-i+1);
-            j++;
-        }
+        mp[temp]=j;
+        ans=max(ans,j-i+1);
+        j++;
     }
     return ans;
 }
