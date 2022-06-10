@@ -17,29 +17,23 @@ int main()
 // } Driver Code Ends
 
 
-int longestSubstrDistinctChars (string s)
+int longestSubstrDistinctChars (string S)
 {
-    // your code here
-    int n=s.length();
-        unordered_map<char,int>mp;
-        int i=0,j=0,ans=0,loc_ans=0;
-        while(j<n){
-            if(mp.find(s[j])!=mp.end()){
-                int pos=mp[s[j]];
-                if(pos>=i)
-                    i=pos+1;
-                ans=max(ans,j-i+1);
-                loc_ans=j-i+1;
-                mp[s[j]]=j;
-                j++;
-            }
-            else{
-                mp[s[j]]=j;
-                j++;
-                loc_ans++;
-                ans=max(ans,loc_ans);
-            }
+    unordered_map<char,int>mp;
+    int i=0,j=0;
+    int ans=0;
+    int n=S.length();
+    while(j<n){
+        char temp=S[j];
+        mp[temp]++;
+        while(mp[temp]>1){
+            mp[S[i]]--;
+            i++;
         }
-        return ans;
-    
+        if(mp[temp]==1){
+            ans=max(ans,j-i+1);
+            j++;
+        }
+    }
+    return ans;
 }
