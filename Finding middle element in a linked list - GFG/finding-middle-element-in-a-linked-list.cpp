@@ -41,21 +41,29 @@ class Solution{
     /* Should return data of middle node. If linked list is empty, then  -1*/
     int getMiddle(Node *head)
     {
-        int n=0;
-        if(head==NULL)
-            return -1;
-        int ans=0;
-        Node*temp=head;
-        while(temp!=NULL)
-         {  n++;
-            temp=temp->next;
-         }
-         n=n/2+1;
-         while(n!=1){
-             head=head->next;
-             n--;
-            }
-            return head->data;
+        // int n=0;
+        // if(head==NULL)
+        //     return -1;
+        // int ans=0;
+        // Node*temp=head;
+        // while(temp!=NULL)
+        //  {  n++;
+        //     temp=temp->next;
+        //  }
+        //  n=n/2+1;
+        //  while(n!=1){
+        //      head=head->next;
+        //      n--;
+        //     }
+        //     return head->data;
+        // Tortoise Method
+        Node* fast=head;
+        Node*slow=head;
+        while( fast!=NULL and fast->next!=NULL){
+            slow=slow->next;
+            fast=fast->next->next;
+        }
+        return slow->data;
     }
 };
 
