@@ -106,31 +106,33 @@ class Solution{
     vector <int> zigZagTraversal(Node* root)
     {
     	vector<int>ans;
-    	stack<Node*>s1,s2;
-    	s1.push(root);
-    	bool leftToright=true;
-    	while(s1.empty()!=true){
-    	    Node*temp=s1.top();
-    	    s1.pop();
-    	    ans.push_back(temp->data);
-    	    if(leftToright){
-    	        if(temp->left!=NULL)
-    	            s2.push(temp->left);
-    	        if(temp->right!=NULL)
-    	            s2.push(temp->right);
-    	    }
-    	    else{
-    	        if(temp->right!=NULL)
-    	            s2.push(temp->right);
-    	        if(temp->left!=NULL)
-    	            s2.push(temp->left);
-    	    }
-    	    if(s1.empty()){
-    	        leftToright=!leftToright;
-    	        swap(s1,s2);
-    	    }
-    	}
-    	return ans;
+    	if(root==NULL)
+    	    return ans;
+    	 stack<Node*>s1,s2;
+    	 s1.push(root);
+    	 bool current_level=true;
+    	 while(s1.empty()!=true){
+    	     auto it=s1.top();
+    	     ans.push_back(it->data);
+    	     s1.pop();
+    	     if(current_level==true){
+    	         if(it->left)
+    	         s2.push(it->left);
+    	         if(it->right)
+    	         s2.push(it->right);
+    	     }
+    	     else{
+    	         if(it->right)
+    	         s2.push(it->right);
+    	         if(it->left)
+    	         s2.push(it->left);
+    	     }
+    	     if(s1.empty()==true){
+    	         swap(s1,s2);
+    	         current_level=!(current_level);
+    	     }
+    	 }
+    	 return ans;
     }
 };
 
