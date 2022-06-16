@@ -6,10 +6,10 @@ using namespace std;
 class Solution
 {
 	public:
-	    vector<string>ans;
+	   set<string>ans;
 	    void solve(string S,int n,int pos){
 	        if(pos==n){
-	            ans.push_back(S);
+	            ans.insert(S);
 	            return;
 	        }
 	        for(int i=pos;i<n;i++){
@@ -19,11 +19,14 @@ class Solution
 	        }
 	    }
 		vector<string>find_permutation(string S)
-		{
+	{
 		   int n=S.length();
 		   solve(S,n,0);
-		   sort(ans.begin(),ans.end());
-		    return ans;
+		   vector<string>final_ans;
+		   for(auto it:ans)
+		    final_ans.push_back(it);
+		   sort(final_ans.begin(),final_ans.end());
+		    return final_ans;
 		    
 		}
 };
