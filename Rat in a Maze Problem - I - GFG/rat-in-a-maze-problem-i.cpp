@@ -11,26 +11,24 @@ using namespace std;
 class Solution{
     public:
     vector<string>ans;
-    bool vis[6][6];
-    void solve(int i,int j,int n,vector<vector<int>>&m,string s){
-        if(i==n-1 && j==n-1){
+    void solve(vector<vector<int>> &m, int n,int r,int c,string s){
+        // base case
+        if(r==n-1 and c==n-1 and m[r][c]!=0){
             ans.push_back(s);
             return;
         }
-        if(i<0 || j<0 || i>=n || j>=n || vis[i][j] || m[i][j]==0)return;
-        vis[i][j]=true;
-        solve(i-1,j,n,m,s+'U');
-        solve(i,j-1,n,m,s+'L');
-        solve(i,j+1,n,m,s+'R');
-        solve(i+1,j,n,m,s+'D');
-        vis[i][j]=false;
+        if(r<0 || r>=n || c<0 || c>=n || m[r][c]!=1)
+            return;
+        m[r][c]=-1;
+        solve(m,n,r-1,c,s+"U");
+        solve(m,n,r,c-1,s+"L");
+        solve(m,n,r,c+1,s+"R");
+        solve(m,n,r+1,c,s+"D");
+        m[r][c]=1;
     }
+    
     vector<string> findPath(vector<vector<int>> &m, int n) {
-        // Your code goes here
-        memset(vis,false,sizeof(vis));
-        if(m[0][0]==0 || m[n-1][n-1]==0)
-            return {"-1"};
-        solve(0,0,n,m,"");
+        solve(m,n,0,0,"");
         return ans;
     }
 };
