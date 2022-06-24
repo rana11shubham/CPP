@@ -18,12 +18,14 @@ public :
 
 class Solution{
     int minEle;
-    stack<pair<int,int>> s;
+    stack<int> s;
     public:
     
        /*returns min element from stack*/
        int getMin(){
-           return (s.empty())?-1:s.top().second;
+           if(s.empty())
+            return -1;
+            return minEle;
            //Write your code here
        }
        
@@ -31,22 +33,36 @@ class Solution{
        int pop(){
            if(s.empty())
             return -1;
-           int x=s.top().first;
-           s.pop();
-           return x;
+            int ele=-1;
+           if(minEle>s.top()){
+               ele=minEle;
+               minEle=2*minEle-s.top();
+               s.pop();
+           }
+           else{
+            ele=s.top();
+                s.pop();
+           }
+            return ele;
            //Write your code here
        }
        
        /*push element x into the stack*/
        void push(int x){
+           //Write your code here
            if(s.empty()){
-               s.push({x,x});
+               s.push(x);
+               minEle=x;
            }
            else{
-               int t=s.top().second;
-               s.push({x,min(x,t)});
+               if(minEle>x){
+                   s.push(2*x-minEle);
+                   minEle=x;
+               }
+               else{
+                   s.push(x);
+               }
            }
-           //Write your code here
        }
 };
 
