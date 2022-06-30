@@ -13,7 +13,7 @@ class Solution{
     // Function to check if given number n is a power of two.
     bool isPowerofTwo(long long n){
         
-        int i=100;
+        int i=64;
         int count=0;
         while(i--){
             long long x=1;
