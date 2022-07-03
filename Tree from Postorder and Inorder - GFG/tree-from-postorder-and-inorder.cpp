@@ -62,25 +62,23 @@ struct Node
         left = right = NULL;
     }
 };*/
-map<int,int>mp;
-//Function to return a tree created from postorder and inoreder traversals.
-Node*helper(int post[],int post_start,int post_end,int in[],int in_start,int in_end){
-    if(post_start<post_end or in_start>in_end)
+
+    
+    
+unordered_map<int,int>mp;
+Node* helper(int in[],int in_s,int in_e,int post[],int post_s,int post_e){
+    if(in_s>in_e or post_s<post_e)
         return NULL;
-    Node*root=new Node(post[post_start]);
-    int root_idx=mp[root->data];
-    int item_left=root_idx-in_start;
-    int lpostidx=post_end+item_left-1;
-    root->left=helper(post,lpostidx,post_end,in,in_start,root_idx-1);
-    root->right=helper(post,post_start-1,lpostidx+1,in,root_idx+1,in_end);
+    int root_val=post[post_s];
+    int root_idx=mp[root_val];
+    int ele=root_idx-in_s+1;
+    Node* root=new Node(root_val);
+    root->right=helper(in,root_idx+1,in_e,post,post_s-1,post_e+ele-1);
+    root->left=helper(in,in_s,root_idx-1,post,post_e+ele-2,post_e);
     return root;
-    
-    
 }
 Node *buildTree(int in[], int post[], int n) {
-    if(n==0)
-        return NULL;
-    for(int i=0;i<n;i++)
-        mp[in[i]]=i;
-    return helper(post,n-1,0,in,0,n-1);
+  for(int i=0;i<n;i++)
+    mp[in[i]]=i;
+  Node*root=helper(in,0,n-1,post,n-1,0);
 }
