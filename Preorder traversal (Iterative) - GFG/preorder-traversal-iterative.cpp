@@ -99,21 +99,32 @@ class Solution{
     public:
     vector<int> preOrder(Node* root)
     {
+         // Using Moris Traversal
+        Node *cur=root;
         vector<int>ans;
-        if(root==NULL)
-            return {};
-        stack<Node*>s;
-        s.push(root);
-        while(s.empty()!=true){
-            Node*temp=s.top();
-            int val=temp->data;
-            s.pop();
-            ans.push_back(val);
-            if(temp->right!=NULL)
-                s.push(temp->right);
-            if(temp->left!=NULL)
-                s.push(temp->left);    
+        while(cur!=NULL){
+            Node*prev=cur->left;
+            if(prev==NULL){
+                ans.push_back(cur->data);
+                cur=cur->right;
+            }
+            else{
+            while(prev->right and prev->right!=cur){
+                prev=prev->right;
+            }
+            if(prev->right==NULL){
+                prev->right=cur;
+                ans.push_back(cur->data);
+                cur=cur->left;
+                
+            }
+            else if(prev->right==cur){
+                cur=prev->right;
+                prev->right=NULL;
+                cur=cur->right;
+            }
         }
+    }
         return ans;
     }
 };
