@@ -98,25 +98,31 @@ class Solution {
 public:
     vector<int> inOrder(Node* root)
     {
+        // Using Moris Traversal
+        Node *cur=root;
         vector<int>ans;
-        stack<Node*>st;
-        Node*node=root;
-        while(true){
-            if(node!=NULL){
-                st.push(node);
-                node=node->left;
+        while(cur!=NULL){
+            Node*prev=cur->left;
+            if(prev==NULL){
+                ans.push_back(cur->data);
+                cur=cur->right;
             }
             else{
-                if(st.empty()==true){
-                    break;
-                }
-                node=st.top();
-                st.pop();
-                int val=node->data;
-                ans.push_back(val);
-                node=node->right;
+            while(prev->right and prev->right!=cur){
+                prev=prev->right;
+            }
+            if(prev->right==NULL){
+                prev->right=cur;
+                cur=cur->left;
+            }
+            else if(prev->right==cur){
+                cur=prev->right;
+                prev->right=NULL;
+                ans.push_back(cur->data);
+                cur=cur->right;
             }
         }
+    }
         return ans;
     }
 };
