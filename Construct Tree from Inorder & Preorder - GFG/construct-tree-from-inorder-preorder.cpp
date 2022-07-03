@@ -41,23 +41,25 @@ struct Node
 */
 class Solution{
     public:
-    map<int,int>mp;
-    Node*helper(int pre[],int pre_start,int pre_end,int in[],int in_start,int in_end){
-        if(pre_start>pre_end or in_start>in_end)
-            return NULL;
-        Node*root=new Node(pre[pre_start]);
-        int in_root= mp[pre[pre_start]];
-        root->left=helper(pre,pre_start+1,in_root-in_start+pre_start,in,in_start,in_root-1);
-        root->right=helper(pre,in_root-in_start+1+pre_start,pre_end,in,in_root+1,in_end);
-        return root;
+    unordered_map<int,int>mp;
+    Node* helper(int in[],int in_s,int in_e,int pre[],int pre_s,int pre_e){
+            // Base case
+            if(pre_s>pre_e or in_s>in_e)
+                return NULL;
+            int root_val=pre[pre_s];
+            Node*root=new Node(root_val);
+            int root_idx=mp[root_val];
+            int ele=root_idx-in_s+1;
+            root->left=helper(in,in_s,root_idx-1,pre,pre_s+1,pre_s+ele-1);
+            root->right=helper(in,root_idx+1,in_e,pre,pre_s+ele,pre_e);
+            return root;
+            
     }
     Node* buildTree(int in[],int pre[], int n)
     {  
-
-       for(int i=0;i<n;i++)
+        for(int i=0;i<n;i++)
             mp[in[i]]=i;
-        Node*root=helper(pre,0,n-1,in,0,n-1);
-        return root;
+        Node*root=helper(in,0,n-1,pre,0,n-1);
     }
 };
 
