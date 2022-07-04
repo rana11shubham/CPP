@@ -11,35 +11,35 @@ using namespace std;
 class Solution 
 {
     public:
-    bool isValid(int A[],int X,int N,int M){
-        int student=1,sum=0;
+    
+    //Function to find minimum number of pages.
+    bool isValid(int A[],int N,int M,int mid){
+        int count=1,sum=0;
         for(int i=0;i<N;i++){
             sum+=A[i];
-            if(sum>X){
-                student++;
+            if(sum>mid){
+                count++;
                 sum=A[i];
             }
-            if(student>M)
+            if(count>M)
                 return false;
         }
         return true;
     }
-    //Function to find minimum number of pages.
+    
     int findPages(int A[], int N, int M) 
     {
-        int s=0,e=0,ans=0;
-        if(N<M)
-            return -1;
-        for(int i=0;i<N;i++){
-            if(s<A[i])
-                s=A[i];
+        int s=A[N-1];
+        
+        int e=0;
+        int ans=-1;
+        for(int i=0;i<N;i++)
             e+=A[i];
-        }
         while(s<=e){
             int mid=s+(e-s)/2;
-            if(isValid(A,mid,N,M)){
-                ans=mid;
+            if(isValid(A,N,M,mid)){
                 e=mid-1;
+                ans=mid;
             }
             else{
                 s=mid+1;
