@@ -105,13 +105,13 @@ class Solution {
             P.h=0;
             return P;
         }
-        if(root->left==NULL and root->right==NULL)
-            {
-                Pair P;
-                P.d=1;
-                P.h=1;
-                return P;
-            }
+        // if(root->left==NULL and root->right==NULL)
+        //     {
+        //         Pair P;
+        //         P.d=1;
+        //         P.h=1;
+        //         return P;
+        //     }
         Pair P;
         Pair p_left=solve(root->left);
         Pair p_right=solve((root->right));
