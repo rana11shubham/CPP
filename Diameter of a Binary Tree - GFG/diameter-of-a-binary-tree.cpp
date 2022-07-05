@@ -93,20 +93,36 @@ struct Node
 
 class Solution {
   public:
+  struct Pair{
+      int d;
+      int h;
+  };
     // Function to return the diameter of a Binary Tree.
-    int height(Node*root){
-        if(root==NULL)
-            return 0;
-        return 1+max(height(root->left),height(root->right));
+    Pair solve(Node*root){
+        if(root==NULL){
+            Pair P;
+            P.d=0;
+            P.h=0;
+            return P;
+        }
+        if(root->left==NULL and root->right==NULL)
+            {
+                Pair P;
+                P.d=1;
+                P.h=1;
+                return P;
+            }
+        Pair P;
+        Pair p_left=solve(root->left);
+        Pair p_right=solve((root->right));
+        P.h=1+max(p_left.h,p_right.h);
+        P.d=max(1+p_left.h+p_right.h,max(p_left.d,p_right.d));
+        return P;
     }
     int diameter(Node* root) {
-        if(root==NULL)
-            return 0;
-        int diameter_left=diameter(root->left);
-        int diameter_right=diameter(root->right);
-        int height_left=height(root->left);
-        int height_right=height(root->right);
-        return max(height_left+height_right+1,max(diameter_left,diameter_right));
+        // Your code here
+        Pair p=solve(root);
+        return p.d;
     }
 };
 
