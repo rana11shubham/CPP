@@ -13,25 +13,26 @@ vector<string> AllParenthesis(int n) ;
 // Return list of all combinations of balanced parantheses
 class Solution
 {
+    
     public:
     vector<string>ans;
-    void solve(string res,int left,int right){
-        if(left==0 && right==0){
-            ans.push_back(res);
+    void solve(string s,int l,int r){
+        if(l==0 and r==0){
+            ans.push_back(s);
             return;
         }
-        if(left>0){
-            solve(res+"(",left-1,right+1);
+        if(l>0){
+            solve(s+"(",l-1,r+1);
         }
-        if(right>0){
-            solve(res+")",left,right-1);
+        if(r>0){
+            solve(s+")",l,r-1);
         }
     }
+    
     vector<string> AllParenthesis(int n) 
-    {
-        // Your code goes here 
-        solve("",n,0);
-        return ans;
+    {   
+         solve("",n,0);
+         return ans;
     }
 };
 
