@@ -1,5 +1,5 @@
 # Generate Parentheses
-##  Medium 
+## Medium 
 <div class="problem-statement">
                 <p></p><p><span style="font-size:18px">Given an integer <strong>N</strong> representing the number of pairs of parentheses, the task is to generate all combinations of well-formed(balanced) parentheses.</span></p>
 
