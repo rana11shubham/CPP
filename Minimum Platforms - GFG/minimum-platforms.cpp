@@ -14,21 +14,20 @@ class Solution{
     {
     	sort(arr,arr+n);
     	sort(dep,dep+n);
-        int train=0;
-        int max_platform=0;
-        int i=0,j=0;
-        while(i<n and j<n){
-            if(arr[i]<=dep[j]){
-                train++;
-                i++;
-            }
-            else {
-                train--;
-                j++;
-            }
-            max_platform=max(train,max_platform);
-        }
-        return max_platform;
+    	int train=0,ans=0;
+    	int i=0,j=0;
+    	while(i<n and j<n){
+    	    if(arr[i]<=dep[j]){
+    	        train++;
+    	        i++;
+    	    }
+    	    else{
+    	        train--;
+    	        j++;
+    	    }
+    	    ans=max(ans,train);
+    	}
+    	return ans;
     }
 };
 
