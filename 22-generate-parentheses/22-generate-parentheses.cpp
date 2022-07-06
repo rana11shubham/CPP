@@ -1,22 +1,20 @@
 class Solution {
 public:
     vector<string>ans;
-    void solve(int n,int pos,string res){
-      if(n==0 && pos==0){
-          ans.push_back(res);
-          return;
-      }
-        if(n>0){
-        solve(n-1,pos+1,res+"(");
+    void generate(int n,string s,int l,int r){
+        if(l==0 and r==0){
+            ans.push_back(s);
+            return;
         }
-        if(pos>0){
-        solve(n,pos-1,res+")");
+        if(l>0){
+            generate(n,s+'(',l-1,r+1);
         }
+        if(r>0){
+            generate(n,s+')',l,r-1);
         }
+    }
     vector<string> generateParenthesis(int n) {
-       if(n==0)
-           return {};
-        solve(n,0,"");
+        generate(n,"",n,0);
         return ans;
     }
 };
