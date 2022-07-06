@@ -1,24 +1,25 @@
 class Solution {
 public:
-    // buy=0 means I want to sell the stock
-    // buy=1 means I want to buy the stock
-    vector<vector<int>>dp;
-    int solve(vector<int>&prices,int idx,int buy,int n){
-        // Base Cases
-        if(idx>=n)
+    int dp[5001][2];
+    int solve(int i,int buy,vector<int>&prices){
+        // Base case
+        if(i>=prices.size()){
             return 0;
-        if(dp[idx][buy]!=-1)
-            return dp[idx][buy];
-        if(buy==1){
-            return dp[idx][buy]=max(solve(prices,idx+1,buy,n),solve(prices,idx+1,0,n)-prices[idx]);
         }
-        
-            return dp[idx][buy]=max(solve(prices,idx+1,buy,n),solve(prices,idx+2,1,n)+prices[idx]);
-        
+        if(dp[i][buy]!=-1)
+            return dp[i][buy];
+        int ans=0;
+        if(buy==1){
+            ans=max(solve(i+1,buy,prices),solve(i+1,1-buy,prices)-prices[i]);
+        }
+        else{
+            ans=max(solve(i+1,buy,prices),solve(i+2,1-buy,prices)+prices[i]);
+        }
+        return dp[i][buy]= ans;
     }
     int maxProfit(vector<int>& prices) {
         int n=prices.size();
-        dp.resize(n+1,vector<int>(2,-1));
-        return solve(prices,0,1,n);
+        memset(dp,-1,sizeof(dp));
+        return solve(0,1,prices);
     }
 };
