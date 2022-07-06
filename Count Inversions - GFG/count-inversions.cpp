@@ -14,14 +14,13 @@ class Solution{
         long long count=0;
         long long temp[e-s+1];
         long long i=s,j=mid;
-        long long k=0;
+        int k=0;
         while(i<mid and j<=e){
             if(arr[i]>arr[j]){
-                count+=(mid-i);
+                count+=mid-i;
                 temp[k]=arr[j];
                 j++;
                 k++;
-                
             }
             else {
                 temp[k]=arr[i];
@@ -42,8 +41,8 @@ class Solution{
             j++;
         }   
         
-        for(int m=s;m<=e;m++){
-            arr[m]=temp[m-s];
+        for(int i=s;i<=e;i++){
+            arr[i]=temp[i-s];
         }
         return count;
     }
