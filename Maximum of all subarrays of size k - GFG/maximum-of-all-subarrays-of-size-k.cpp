@@ -12,28 +12,44 @@ class Solution
 {
   public:
     //Function to find maximum of each subarray of size k.
-    vector <int> max_of_subarrays(int *arr, int n, int k)
+    vector <int> max_of_subarrays(int *nums, int n, int k)
     {
-       deque<int>dq;
-       vector<int>result;
-       for(int i=0;i<k;i++){
-           while(!dq.empty() and arr[dq.back()]<=arr[i]){
-               dq.pop_back();
-           }
-           dq.push_back(i);
-       }
-       result.push_back(arr[dq.front()]);
-       for(int i=k;i<n;i++){
+    //   deque<int>dq;
+    //   vector<int>result;
+    //   for(int i=0;i<k;i++){
+    //       while(!dq.empty() and arr[dq.back()]<=arr[i]){
+    //           dq.pop_back();
+    //       }
+    //       dq.push_back(i);
+    //   }
+    //   result.push_back(arr[dq.front()]);
+    //   for(int i=k;i<n;i++){
           
-          while(!dq.empty() and dq.front()<=i-k){
-              dq.pop_front();
-          }
-          while(!dq.empty() and arr[dq.back()]<=arr[i])
-            dq.pop_back();
-          dq.push_back(i);
-          result.push_back(arr[dq.front()]);
+    //       while(!dq.empty() and dq.front()<=i-k){
+    //           dq.pop_front();
+    //       }
+    //       while(!dq.empty() and arr[dq.back()]<=arr[i])
+    //         dq.pop_back();
+    //       dq.push_back(i);
+    //       result.push_back(arr[dq.front()]);
+    //   }
+    //     return result;
+    multiset<int>mp;
+       //int n=nums.size();
+       vector<int>dp;
+        //mp.insert(dp[0]);
+       for(int i=0;i<n;i++){
+           if(i>=k-1){
+               mp.insert(nums[i]);
+               dp.push_back(*rbegin(mp));
+               mp.erase(mp.find(nums[i-k+1]));
+               
+              
+           }
+           else
+          mp.insert(nums[i]);
        }
-        return result;
+        return dp;
     }
 };
 
