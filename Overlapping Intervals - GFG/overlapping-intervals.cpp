@@ -5,29 +5,33 @@ using namespace std;
  // } Driver Code Ends
 class Solution {
 private:
-    static bool comp(vector<int>&a,vector<int>&b){
-        if(a[0]==b[0])
+   static bool comp(vector<int>&a,vector<int>&b){
+       if(a[0]<b[0])
+            return true;
+        else if(a[0]==b[0]){
             return a[1]<b[1];
-        return a[0]<b[0];
-    }
+        }
+        return false;
+   }
 public:
     
     vector<vector<int>> overlappedInterval(vector<vector<int>>& intervals) {
          sort(intervals.begin(),intervals.end(),comp);
-        vector<int>ans=intervals[0];
-        vector<vector<int>>final_ans;
-        for(auto it:intervals){
-            if(it[0]<=ans[1]){
-                ans[1]=max(ans[1],it[1]);
-            }
-            else{
-                final_ans.push_back(ans);
-                ans=it;
-            }
-        }
-        final_ans.push_back(ans);
-        return final_ans;
-         
+         vector<int>result(2,0);
+         vector<vector<int>>ans;
+         result[0]=intervals[0][0];
+         result[1]=intervals[0][1];
+         for(int i=1;i<intervals.size();i++){
+             if(result[1]>=intervals[i][0]){
+                 result[1]=max(result[1],intervals[i][1]);
+             }
+             else{
+                 ans.push_back(result);
+                 result=intervals[i];
+             }
+         }
+         ans.push_back(result);
+         return ans;
     }
 };
 
