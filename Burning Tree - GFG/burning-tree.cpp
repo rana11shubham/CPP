@@ -86,19 +86,19 @@ class Solution {
   public:
     int minTime(Node* root, int target) 
     {
-        if(root==NULL)
+        // First find the target node pointer in the binary tree
+       if(root==NULL)
             return 0;
         queue<Node*>q;
+        Node* target_ptr=NULL;
         q.push(root);
-        Node*tar_ref=NULL;
-        map<Node*,Node*>par;
-        par[root]=NULL;
+        unordered_map<Node*,Node*>par;
         while(q.empty()!=true){
-            auto it=q.front();
+            Node* it=q.front();
             q.pop();
-
-            if(tar_ref==NULL and it->data==target)
-                tar_ref=it;
+            if(target_ptr==NULL and it->data==target){
+                target_ptr=it;
+            }
             if(it->left){
                 par[it->left]=it;
                 q.push(it->left);
@@ -108,33 +108,31 @@ class Solution {
                 q.push(it->right);
             }
         }
-        int total_time=-1;
-        map<Node*,bool>mp;
-        q.push(tar_ref);
-        mp[tar_ref]=true;
-        while(q.empty()!=true){
-            
+        int time=-1;
+        unordered_map<Node*,bool>vis;
+        q.push(target_ptr);
+        vis[target_ptr]=true;
+        while(!q.empty()){
             int n=q.size();
             for(int i=0;i<n;i++){
-                auto it=q.front();
-                    q.pop();
-                if(it->left && !mp[it->left]){
-                    mp[it->left]=true;
-                    q.push(it->left);
-                    }
-                    if(it->right && !mp[it->right]){
-                    mp[it->right]=true;
-                    q.push(it->right);
-                    }
-                    if(par[it]!=NULL && !mp[par[it]]){
-                    mp[par[it]]=true;
-                    q.push(par[it]);
-                    }
+                auto v=q.front();
+                q.pop();
+                if(v->left!=NULL and vis.find(v->left)==vis.end()){
+                    q.push(v->left);
+                    vis[v->left]=true;
                 }
-                    total_time++;
-            
+                if(v->right!=NULL and vis.find(v->right)==vis.end()){
+                    q.push(v->right);
+                    vis[v->right]=true;
+                }
+                if(par[v]!=NULL and vis.find(par[v])==vis.end()){
+                    q.push(par[v]);
+                    vis[par[v]]=true;
+                }
+            }
+            time++;
         }
-        return total_time;
+        return time;
     }
 };
 
