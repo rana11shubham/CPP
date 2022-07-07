@@ -13,18 +13,33 @@ class Solution
     priority_queue<int,vector<int>,greater<int>>right;
     void insertHeap(int &x)
     {
-        int l_size=left.size();
-        int r_size=right.size();
-        double mid=getMedian();
-        if(l_size==r_size){
-            if(mid>x){
+        int n1=left.size();
+        int n2=right.size();
+        
+        double median=getMedian();
+        if(n1==0 and n2==0){
+            left.push(x);
+        }
+        else if(n1==n2){
+            if(median>x){
                 left.push(x);
             }
-            else
+            else{
                 right.push(x);
+            }
         }
-        else if(r_size>l_size){
-            if(mid>x){
+        else if(n1>n2){
+            if(median>x){
+                right.push(left.top());
+                left.pop();
+                left.push(x);
+            }
+            else{
+                right.push(x);
+            }
+        }
+        else{
+            if(median>x){
                 left.push(x);
             }
             else{
@@ -33,18 +48,7 @@ class Solution
                 right.push(x);
             }
         }
-        else{
-         if(mid>x){
-                right.push(left.top());
-                left.pop();
-                left.push(x);
-            }
-            else{
-                right.push(x);
-            }
-        }   
-        }
-    
+    }
     
     //Function to balance heaps.
     void balanceHeaps()
@@ -55,17 +59,22 @@ class Solution
     //Function to return Median.
     double getMedian()
     {
-        double ans=0.0;
-        int l_size=left.size();
-        int r_size=right.size();
-        if(l_size==0 and r_size==0)
-            return ans;
-        else if(l_size>r_size)
+        int n1=left.size();
+        int n2=right.size();
+        if(n1==0 and n2==0){
+            return 0.0;
+        }
+        else if(n1>n2){
             return left.top();
-        else if(r_size>l_size)
+        }
+        else if(n1<n2){
             return right.top();
-        return (left.top()+right.top())/2.0;
+        }
+        
+            return (left.top()+right.top())/2.0;
+        
     }
+
 };
 
 
