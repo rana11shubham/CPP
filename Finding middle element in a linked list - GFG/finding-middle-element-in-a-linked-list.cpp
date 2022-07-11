@@ -57,9 +57,9 @@ class Solution{
         //     }
         //     return head->data;
         // Tortoise Method
-        Node* fast=head;
-        Node*slow=head;
-        while( fast!=NULL and fast->next!=NULL){
+        Node*fast=head,*slow=head;
+        while(fast!=NULL and fast->next!=NULL)
+        {
             slow=slow->next;
             fast=fast->next->next;
         }
