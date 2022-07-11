@@ -61,19 +61,19 @@ int main()
 
 //Function to find the data of nth node from the end of a linked list.
 int getNthFromLast(Node *head, int n)
-{   Node* fast=head;
+{   
     Node* slow=head;
-    while(n!=1 && fast!=NULL){
+    Node* fast=head;
+    while(n!=1 and fast!=NULL){
         fast=fast->next;
         n--;
     }
     if(fast==NULL)
         return -1;
     while(fast->next!=NULL){
-        slow=slow->next;
         fast=fast->next;
+        slow=slow->next;
     }
     return slow->data;
-    
 }
 
