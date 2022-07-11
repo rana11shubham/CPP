@@ -77,39 +77,42 @@ class Solution
 {
     public:
     //Function to remove a loop in the linked list.
-    Node* detectCycle(Node*head){
-        Node*fast=head;
-        Node*slow=head;
-        while(fast!=NULL and fast->next!=NULL){
-            fast=fast->next->next;
-            slow=slow->next;
-            if(fast==slow)
-                return slow;
-        }
-        return NULL;
-    }
     void removeLoop(Node* head)
-    {
-        Node* start=detectCycle(head);
-        if(start==NULL)
+    {  if(head==NULL)
             return;
-        // Let me find out the starting node for the cycle
-        Node*temp=head;
-        if(start==head){
-            while(temp->next!=start){
-                temp=temp->next;
+        Node* slow=head;
+        Node* fast=head;
+        while(fast!=NULL and fast->next!=NULL){
+            slow=slow->next;
+            fast=fast->next->next;
+            if(slow==fast){
+                break;                
             }
-            temp->next=NULL;
+        }
+        if(slow!=fast)
+            return;
+        Node* temp=head;
+        Node*prev=NULL;
+        if(slow==head){
+            while(slow->next!=head){
+            
+                slow=slow->next;
+            }
+            slow->next=NULL;
             return;
         }
-        Node*prev=NULL;
-        while(temp!=start){
-            prev=start;
-            start=start->next;
+        while(slow!=temp){
+            prev=slow;
+            slow=slow->next;
             temp=temp->next;
+            if(slow==temp)
+            {
+                break;
+            }
         }
-        prev->next=NULL;
+         prev->next=NULL;
     }
+                
 };
 
 // { Driver Code Starts.
