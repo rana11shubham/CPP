@@ -45,8 +45,15 @@ class Solution
     }
     struct Node* reverseList(struct Node *head)
     {
-        struct Node* temp=reverseLink(head,NULL);
-        return temp;
+//        struct Node* temp=reverseLink(head,NULL);
+        struct Node* prev=NULL;
+        while(head!=NULL){
+            struct Node* next_node=head->next;
+            head->next=prev;
+            prev=head;
+            head=next_node;
+        }
+        return prev;
     }
 };
     
