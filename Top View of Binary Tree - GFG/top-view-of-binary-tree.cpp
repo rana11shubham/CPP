@@ -109,25 +109,28 @@ class Solution
         vector<int>ans;
         if(root==NULL)
             return ans;
-        map<int,int>mp;
-        queue<pair<Node*,int>>q;
-        q.push({root,0});
-        while(q.empty()!=true){
+        map<int,map<int,Node*>>mp;
+        queue<pair<Node*,pair<int,int>>>q;
+        q.push({root,{0,0}});
+        while(!q.empty()){
             auto it=q.front();
             q.pop();
-            int x=it.first->data;
-            int idx=it.second;
-            if(mp[idx]==0){
-                mp[idx]=x;
+            Node* node=it.first;
+            int vert_idx=it.second.first;
+            int level_idx=it.second.second;
+            mp[vert_idx][level_idx]=node;
+            if(node->left){
+                q.push({node->left,{vert_idx-1,level_idx+1}});
             }
-            if(it.first->left!=NULL)
-                q.push({it.first->left,idx-1});
-            if(it.first->right!=NULL)
-                q.push({it.first->right,idx+1});
-            
+            if(node->right){
+                q.push({node->right,{vert_idx+1,level_idx+1}});
+            }
         }
         for(auto it:mp){
-            ans.push_back(it.second);
+            for(auto it1:it.second){
+            ans.push_back(it1.second->data);
+            break;
+        }
         }
         return ans;
     }
