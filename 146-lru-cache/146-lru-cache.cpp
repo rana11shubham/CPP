@@ -39,16 +39,15 @@ public:
         node->prev=0;
     }
     int get(int key) {
-        if(lru.find(key)==lru.end())
+        if(lru[key]==0)
             return -1;
         Node* temp=lru[key];
-        if(temp!=0){
+       
             int ans=temp->val;
             deleteNode(temp);
             addNode(temp);
             return ans;
-        }
-        return -1;
+        
     }
     
     void put(int key, int value) {
