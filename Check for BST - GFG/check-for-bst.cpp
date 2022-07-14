@@ -23,16 +23,18 @@ class Solution
 {
     public:
     //Function to check whether a Binary Tree is BST or not.
-    bool checkBST(Node*root,int low_limit,int high_limit){
+    bool helper(Node*root,int lower,int upper){
         if(root==NULL)
             return true;
-        if(root->data>high_limit || root->data<low_limit)
+        if((root->data)<lower or (root->data>upper))
             return false;
-        return checkBST(root->left,low_limit,root->data)&&checkBST(root->right,root->data,high_limit);
+        bool l=helper(root->left,lower,root->data);
+        bool r=helper(root->right,root->data,upper);
+        return l&&r;
     }
     bool isBST(Node* root) 
     {
-        return checkBST(root,INT_MIN,INT_MAX);
+        return helper(root,INT_MIN,INT_MAX);
     }
 };
 
