@@ -11,29 +11,29 @@
  */
 class Solution {
 public:
-     TreeNode*helper(vector<int>& pre,int pre_start,int pre_end,vector<int>& in,int in_start,int in_end){
-        if(pre_start>pre_end or in_start>in_end)
+     unordered_map<int,int>mp;
+    TreeNode* helper(vector<int>&preorder,int preS,int preE,vector<int>&inorder,int inS,int inE){
+        if(preS>preE)
             return NULL;
-         int root_val=pre[pre_start];
-        int in_root=-1;
-        TreeNode*root=new TreeNode(root_val);
-         for(int i=in_start;i<=in_end;i++)
-            if(root_val==in[i])
-                in_root=i;
-       
-         int item_left=in_root-in_start;
-        root->left=helper(pre,pre_start+1,pre_start+item_left,in,in_start,in_root-1);
-        root->right=helper(pre,item_left+pre_start+1,pre_end,in,in_root+1,in_end);
+        int root_node=preorder[preS];
+        int root_inpos=mp[root_node];
+        int left_nodes=root_inpos-inS;
+        int right_nodes=inE-root_inpos;
+        TreeNode* root=new TreeNode(root_node);
+        root->left=helper(preorder,preS+1,preS+left_nodes,inorder,inS,root_inpos-1);
+        root->right=helper(preorder,preS+left_nodes+1,preE,inorder,root_inpos+1,inE);
         return root;
     }
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
-        int n=preorder.size();
+        int n=preorder.size();    
         if(n==0)
             return NULL;
-       // map<int,int>mp;
-       // for(int i=0;i<n;i++)
-       //      mp[inorder[i]]=i;
-       TreeNode*root=helper(preorder,0,n-1,inorder,0,n-1);
+        int i=0;
+        for(auto it:inorder){
+            mp[it]=i;
+            i++;
+        }
+        TreeNode* root=helper(preorder,0,n-1,inorder,0,n-1);
         return root;
     }
 };
