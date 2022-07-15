@@ -101,19 +101,22 @@ struct Node {
 */
 class Solution{
     public:
+    // return true/false denoting whether the tree is Symmetric or not
     bool helper(struct Node*l,struct Node*r){
-        if(l==NULL or r==NULL)
-            return (l==r);
+        // Base case
+        if(l==NULL and r==NULL)
+            return true;
+        if(l==NULL || r==NULL)
+            return false;
         if(l->data!=r->data)
             return false;
         return helper(l->left,r->right) and helper(l->right,r->left);
     }
-    // return true/false denoting whether the tree is Symmetric or not
     bool isSymmetric(struct Node* root)
     {
 	    if(root==NULL)
 	        return true;
-	   return helper(root->left,root->right);
+	    return helper(root->left,root->right);
     }
 };
 
